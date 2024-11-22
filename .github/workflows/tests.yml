@@ -51,6 +51,14 @@ jobs:
             symfony-version: 7.0
           - php-version: 8.1
             symfony-version: 7.0
+          - php-version: 8.2
+            symfony-version: 4.4.*
+          - php-version: 8.2
+            symfony-version: 5.3.*
+          - php-version: 8.3
+            symfony-version: 4.4.*
+          - php-version: 8.3
+            symfony-version: 5.3.*
     steps:
       - uses: actions/checkout@v2
 

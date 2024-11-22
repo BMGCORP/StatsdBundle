@@ -115,7 +115,7 @@ class M6WebStatsdExtension extends Extension
             // Use only declared servers
             foreach ($config['servers'] as $serverAlias) {
                 // Named server
-                if (array_key_exists($serverAlias, $servers)) {
+                if (\array_key_exists($serverAlias, $servers)) {
                     $matchedServers[] = $serverAlias;
                     continue;
                 }
@@ -131,7 +131,7 @@ class M6WebStatsdExtension extends Extension
 
                 // No server found
                 if (!$found) {
-                    throw new InvalidConfigurationException(sprintf(
+                    throw new InvalidConfigurationException(\sprintf(
                         'M6WebStatsd client %s used server %s which is not defined in the servers section',
                         $alias,
                         $serverAlias

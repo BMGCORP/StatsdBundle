@@ -113,7 +113,7 @@ class ConsoleListener extends \atoum
             ->then
                 ->mock($dispatcher)
                     ->call('dispatch')
-                        ->exactly(count($firedEvents))
+                        ->exactly(\count($firedEvents))
         ;
     }
 }

@@ -112,7 +112,7 @@ class Client extends BaseClient
                 $this->set($this->replaceConfigPlaceholder($event, $name, $confValue), $value, 1, $tags);
             } elseif ('timing' === $conf) {
                 $this->addTiming($event, 'getTiming', $this->replaceConfigPlaceholder($event, $name, $confValue), $tags);
-            } elseif (('custom_timing' === $conf) and is_array($confValue)) {
+            } elseif (('custom_timing' === $conf) and \is_array($confValue)) {
                 $this->addTiming($event, $confValue['method'], $this->replaceConfigPlaceholder($event, $name, $confValue['node']), $tags);
             } elseif ('immediate_send' === $conf) {
                 $immediateSend = $confValue;
@@ -123,7 +123,7 @@ class Client extends BaseClient
             }
         }
 
-        if (null !== $this->toSendLimit && count($this->getToSend()) >= $this->toSendLimit) {
+        if (null !== $this->toSendLimit && \count($this->getToSend()) >= $this->toSendLimit) {
             $immediateSend = true;
         }
 
@@ -143,10 +143,10 @@ class Client extends BaseClient
     private function getEventValue($event, $method)
     {
         if (!method_exists($event, $method)) {
-            throw new Exception('The event class '.get_class($event).' must have a '.$method.' method in order to mesure value');
+            throw new Exception('The event class '.\get_class($event).' must have a '.$method.' method in order to mesure value');
         }
 
-        return call_user_func([$event, $method]);
+        return \call_user_func([$event, $method]);
     }
 
     /**

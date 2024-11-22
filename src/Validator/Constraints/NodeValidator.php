@@ -17,7 +17,7 @@ class NodeValidator extends ConstraintValidator
 {
     public function validate($value, Constraint $constraint)
     {
-        if (!is_scalar($value) && !(is_object($value) && method_exists($value, '__toString'))) {
+        if (!\is_scalar($value) && !(\is_object($value) && method_exists($value, '__toString'))) {
             $this->context->addViolation('node is not given or wrong datatype');
 
             return;

@@ -57,7 +57,7 @@ abstract class ConsoleEvent extends Event
      */
     public function __call($name, $parameters)
     {
-        return call_user_func_array(
+        return \call_user_func_array(
             [$this->originalEvent, $name],
             $parameters
         );
@@ -102,7 +102,7 @@ abstract class ConsoleEvent extends Event
     public function getPeakMemory()
     {
         $memory = memory_get_peak_usage(true);
-        $memory = ($memory > 1024 ? intval($memory / 1024) : 0);
+        $memory = ($memory > 1024 ? \intval($memory / 1024) : 0);
 
         return $memory;
     }
@@ -124,7 +124,7 @@ abstract class ConsoleEvent extends Event
     {
         $command = $this->getOriginalEvent()->getCommand();
 
-        if (!is_null($command)) {
+        if (!\is_null($command)) {
             return str_replace(':', '_', $command->getName());
         }
 

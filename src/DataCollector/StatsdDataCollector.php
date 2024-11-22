@@ -45,7 +45,11 @@ class StatsdDataCollector extends DataCollector
      */
     public function onKernelResponse($event)
     {
-        if ($event instanceof KernelEvent && HttpKernelInterface::MASTER_REQUEST == $event->getRequestType()) {
+        $requestConstant = \defined(HttpKernelInterface::class.'::MASTER_REQUEST') ?
+            HttpKernelInterface::class.'::MASTER_REQUEST' :
+            HttpKernelInterface::class.'::MAIN_REQUEST';
+
+        if ($event instanceof KernelEvent && $requestConstant == $event->getRequestType()) {
             foreach ($this->statsdClients as $clientName => $client) {
                 $clientInfo = [
                     'name' => $clientName,
@@ -88,7 +92,7 @@ class StatsdDataCollector extends DataCollector
      * @param Response   $response  The response object
      * @param \Throwable $exception An exception
      */
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null)
     {
     }
 

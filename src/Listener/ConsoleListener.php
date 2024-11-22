@@ -74,7 +74,7 @@ class ConsoleListener
             $class = str_replace(
                 'Symfony\Component\Console\Event',
                 'M6Web\Bundle\StatsdBundle\Event',
-                get_class($e)
+                \get_class($e)
             );
 
             $finaleEvent = $class::createFromConsoleEvent(

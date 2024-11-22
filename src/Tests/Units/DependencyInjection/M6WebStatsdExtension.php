@@ -78,7 +78,7 @@ class M6WebStatsdExtension extends \atoum
         $this
             ->object($definition = $this
                 ->container
-                ->getDefinition(sprintf('m6_statsd.%s', $service))
+                ->getDefinition(\sprintf('m6_statsd.%s', $service))
             )
             ->array($arguments = $definition->getArguments())
             ->object($formatterDefinition = $arguments[1])
@@ -116,7 +116,7 @@ class M6WebStatsdExtension extends \atoum
         $this
             ->object($definition = $this
                 ->container
-                ->getDefinition(sprintf('m6_statsd.%s', $service))
+                ->getDefinition(\sprintf('m6_statsd.%s', $service))
             )
             ->array($arguments = $definition->getArguments())
             ->array($servers = $arguments[0])
@@ -125,7 +125,7 @@ class M6WebStatsdExtension extends \atoum
         foreach ($expectedServers as $key => $expectedServer) {
             $this
                 ->string($servers[$key]['address'])
-                    ->isEqualTo(sprintf('udp://%s', $expectedServer));
+                    ->isEqualTo(\sprintf('udp://%s', $expectedServer));
         }
     }
 
