@@ -5,6 +5,9 @@ on: [push, pull_request]
 jobs:
   tests:
     runs-on: ubuntu-latest
+    env:
+      # The matrix pins EOL Symfony versions with published advisories, which Composer >= 2.9 refuses to install
+      COMPOSER_NO_SECURITY_BLOCKING: 1
     strategy:
       matrix:
         php-version:
@@ -34,6 +37,16 @@ jobs:
             symfony-version: 7.0
           - php-version: 8.3
             symfony-version: 7.0
+          - php-version: 8.4
+            symfony-version: 7.4.*
+          - php-version: 8.4
+            symfony-version: 8.0.*
+          - php-version: 8.4
+            symfony-version: 8.*
+          - php-version: 8.5
+            symfony-version: 7.4.*
+          - php-version: 8.5
+            symfony-version: 8.*
         exclude:
           - php-version: 7.2
             symfony-version: 6.*
@@ -60,7 +73,7 @@ jobs:
           - php-version: 8.3
             symfony-version: 5.3.*
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - uses: shivammathur/setup-php@v2
         with:

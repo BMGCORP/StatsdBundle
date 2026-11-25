@@ -145,9 +145,9 @@ abstract class ConsoleEvent extends Event
     {
         if (static::support($e)) {
             return new static($e, $startTime, $executionTime);
-        } else {
-            throw new \InvalidArgumentException('Invalid event type.');
         }
+
+        throw new \InvalidArgumentException('Invalid event type.');
     }
 
     /**

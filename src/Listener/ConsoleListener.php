@@ -84,8 +84,8 @@ class ConsoleListener
             );
 
             return $this->eventDispatcher->dispatch($finaleEvent);
-        } else {
-            return false;
         }
+
+        return false;
     }
 }

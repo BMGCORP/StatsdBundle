@@ -29,7 +29,7 @@ class StatsdDataCollector extends DataCollector
     /**
      * Reset the data collector to initial state
      */
-    public function reset()
+    public function reset(): void
     {
         $this->statsdClients = [];
         $this->data = [
@@ -45,11 +45,12 @@ class StatsdDataCollector extends DataCollector
      */
     public function onKernelResponse($event)
     {
-        $requestConstant = \defined(HttpKernelInterface::class.'::MASTER_REQUEST') ?
-            HttpKernelInterface::class.'::MASTER_REQUEST' :
-            HttpKernelInterface::class.'::MAIN_REQUEST';
+        // MAIN_REQUEST exists since Symfony 5.3, MASTER_REQUEST was removed in 6.0
+        $mainRequest = \defined(HttpKernelInterface::class.'::MAIN_REQUEST') ?
+            \constant(HttpKernelInterface::class.'::MAIN_REQUEST') :
+            \constant(HttpKernelInterface::class.'::MASTER_REQUEST');
 
-        if ($event instanceof KernelEvent && $requestConstant == $event->getRequestType()) {
+        if ($event instanceof KernelEvent && $mainRequest === $event->getRequestType()) {
             foreach ($this->statsdClients as $clientName => $client) {
                 $clientInfo = [
                     'name' => $clientName,
@@ -92,7 +93,7 @@ class StatsdDataCollector extends DataCollector
      * @param Response   $response  The response object
      * @param \Throwable $exception An exception
      */
-    public function collect(Request $request, Response $response, ?\Throwable $exception = null)
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
     }
 
@@ -121,7 +122,7 @@ class StatsdDataCollector extends DataCollector
      *
      * @return string data collector name
      */
-    public function getName()
+    public function getName(): string
     {
         return 'statsd';
     }
